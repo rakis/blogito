@@ -14,24 +14,24 @@ A simple soup. It happens to be vegan.
 
 ## Ingredients
 
-- 1 tablespoon *Olive Oil*
-- 4 cloves *Garlic*
-- 1.5 lbs *Carrots*
-- 1 small to medium *Yellow Onion*
-- 2-3 *Spicy Peppers* (e.g. Serrano)
-- 1 tsp *Salt* (more to taste)
-- 1/2 tsp *Pepper* (more to taste)
-- 1/2 tsp *Tumeric*
-- 14 oz *Coconut milk*
-- 14 oz vegetable stock
-- 1 inch of *Fresh Ginger*
+- 1 tablespoon **Olive Oil**
+- 4 cloves **Garlic**
+- 1.5 lbs **Carrots**
+- 1 small to medium **Yellow Onion**
+- 2-3 **Spicy Peppers** (e.g. Serrano)
+- 1 tsp **Salt** (more to taste)
+- 1/2 tsp **Pepper** (more to taste)
+- 1/2 tsp **Tumeric**
+- 14 oz **Coconut milk**
+- 14 oz **vegetable stock**
+- 1 inch of **Fresh Ginger**
 
 ### Optional Toppings and Add-ins:
 
-- Cilantro
-- Scallions
-- More Carrots
-- Fresh Bread
+- **Cilantro**
+- **Scallions**
+- More **Carrots**
+- Fresh **Bread**
 
 ## Instructions
 
