@@ -1,0 +1,27 @@
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.categories__item {
+    width: 120px;
+    height: 120px;
+    border-radius: 4px;
+    border: 1px #e2e2e2 solid;
+    margin: 8px;
+
+    a {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (min-width: 321px) {
+    .categories__item {
+        width: 100px;
+        height: 100px;
+    }
+}

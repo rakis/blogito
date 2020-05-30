@@ -2,7 +2,7 @@
 layout: post
 title:  Probability And Possibility
 date:   2019-03-19 00:00:00 -0400
-categories: cogito
+category: cogito
 ---
 
 What does Lloyd Christmas have to do with innovation? Aside from making a lot of questionable choices, he represents a little piece of character that leaders, innovators, and aspiring change-makers should consider.
