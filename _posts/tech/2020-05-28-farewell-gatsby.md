@@ -2,7 +2,7 @@
 layout: post
 title:  "Farewell, Gatsby."
 date:   2020-05-28 06:26:00 -0400
-category: cogito
+category: tech
 ---
 
 My previous journey into the world of self hosted blogging involved using [Gatsby](https://www.gatsbyjs.org/) with [Contentful](https://www.contentful.com/). The best thing about it was that it worked. 
