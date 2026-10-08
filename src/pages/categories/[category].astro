@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublishedPosts, getPostsByCategory } from '../../utils/posts';
+import { CATEGORIES, getCategoryInfo } from '../../content/categories';
+
+export async function getStaticPaths() {
+  const allPosts = await getPublishedPosts();
+  const foundCategories = new Set<string>();
+
+  // Add all predefined categories
+  Object.keys(CATEGORIES).forEach((c) => foundCategories.add(c.toLowerCase()));
+  // Add any category found in posts
+  allPosts.forEach((p) => {
+    if (p.data.category) foundCategories.add(p.data.category.toLowerCase());
+  });
+
+  return Array.from(foundCategories).map((category) => ({
+    params: { category },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const categoryInfo = getCategoryInfo(category);
+const posts = await getPostsByCategory(category);
+---
+
+<BaseLayout
+  title={categoryInfo.name}
+  description={categoryInfo.description}
+>
+  <header class="article-header">
+    <h1 class="article-title">{categoryInfo.name}</h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 0.25rem; margin-bottom: 0;">
+      {categoryInfo.description}
+    </p>
+  </header>
+
+  <section>
+    {posts.length > 0 ? (
+      <ul class="posts-list">
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </ul>
+    ) : (
+      <p>There's nothing to see here.</p>
+    )}
+
+    <p class="rss-subscribe">
+      Subscribe to {categoryInfo.name} <a href={`/feed/${category}.xml`}>via RSS</a> &bull;
+      <a href="/categories">&larr; Back to all categories</a>
+    </p>
+  </section>
+</BaseLayout>

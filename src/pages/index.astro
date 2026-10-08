@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import { getPublishedPosts, getCategoryPostCounts } from '../utils/posts';
+import { CATEGORIES } from '../content/categories';
+
+const posts = await getPublishedPosts();
+const counts = await getCategoryPostCounts();
+const categoriesList = Object.values(CATEGORIES).map((cat) => ({
+  slug: cat.slug,
+  name: cat.name,
+  count: counts[cat.slug] || 0,
+}));
+---
+
+<BaseLayout title="blogito" description="Thoughts and other things by Victor Nghe.">
+  <section aria-labelledby="categories-heading">
+    <h2 id="categories-heading">Categories</h2>
+    <div class="categories-grid">
+      {categoriesList.map((cat) => (
+        <CategoryCard slug={cat.slug} name={cat.name} count={cat.count} />
+      ))}
+    </div>
+  </section>
+
+  <section aria-labelledby="all-posts-heading">
+    <h2 id="all-posts-heading">All Posts</h2>
+    {posts.length > 0 ? (
+      <ul class="posts-list">
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </ul>
+    ) : (
+      <p>No posts published yet.</p>
+    )}
+
+    <p class="rss-subscribe">
+      Subscribe <a href="/feed.xml">via RSS</a>
+    </p>
+  </section>
+</BaseLayout>

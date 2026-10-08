@@ -1,0 +1,14 @@
+---
+export interface Props {
+  slug: string;
+  name: string;
+  count: number;
+}
+
+const { slug, name, count } = Astro.props;
+---
+
+<a href={`/categories/${slug}`} class="category-card">
+  <span class="category-card-name">{name}</span>
+  <span class="category-card-count">{count} {count === 1 ? 'post' : 'posts'}</span>
+</a>

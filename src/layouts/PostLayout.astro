@@ -1,0 +1,47 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { PostEntry } from '../utils/posts';
+import { getPostMetadata } from '../utils/posts';
+import { getCategoryInfo } from '../content/categories';
+
+export interface Props {
+  post: PostEntry;
+}
+
+const { post } = Astro.props;
+const { category, formattedDate, readingTime } = getPostMetadata(post);
+const categoryInfo = getCategoryInfo(category);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.excerpt || `Read ${post.data.title} on blogito.`}
+  type="article"
+>
+  <article>
+    <header class="article-header">
+      <div class="article-meta">
+        <time datetime={new Date(post.data.date).toISOString()}>{formattedDate}</time>
+        <span>&bull;</span>
+        <a href={`/categories/${category}`} class="post-item-badge">{categoryInfo.name}</a>
+        <span>&bull;</span>
+        <span>{readingTime}</span>
+      </div>
+      <h1 class="article-title">{post.data.title}</h1>
+    </header>
+
+    <div class="article-body">
+      <slot />
+    </div>
+
+    <nav class="article-navigation" aria-label="Post Navigation">
+      <a href={`/categories/${category}`}>&larr; More in {categoryInfo.name}</a>
+      <a href="/">All Posts &rarr;</a>
+    </nav>
+
+    <p class="rss-subscribe">
+      Subscribe to this category <a href={`/feed/${category}.xml`}>via RSS</a> &bull;
+      All posts <a href="/feed.xml">via RSS</a>
+    </p>
+  </article>
+</BaseLayout>

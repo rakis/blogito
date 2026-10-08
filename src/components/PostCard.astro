@@ -1,0 +1,24 @@
+---
+import type { PostEntry } from '../utils/posts';
+import { getPostMetadata } from '../utils/posts';
+
+export interface Props {
+  post: PostEntry;
+}
+
+const { post } = Astro.props;
+const { category, url, formattedDate, readingTime } = getPostMetadata(post);
+---
+
+<li class="post-item">
+  <div class="post-item-meta">
+    <time datetime={new Date(post.data.date).toISOString()}>{formattedDate}</time>
+    <a href={`/categories/${category}`} class="post-item-badge">{category}</a>
+    <span>&bull;</span>
+    <span>{readingTime}</span>
+  </div>
+  <h3 class="post-item-title">
+    <a href={url}>{post.data.title}</a>
+  </h3>
+  {post.data.excerpt && <p class="post-item-excerpt">{post.data.excerpt}</p>}
+</li>

@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import CategoryCard from '../../components/CategoryCard.astro';
+import { getPublishedPosts, getCategoryPostCounts } from '../../utils/posts';
+import { CATEGORIES } from '../../content/categories';
+
+const allPosts = await getPublishedPosts();
+const counts = await getCategoryPostCounts();
+const categoriesList = Object.values(CATEGORIES).map((cat) => ({
+  slug: cat.slug,
+  name: cat.name,
+  description: cat.description,
+  count: counts[cat.slug] || 0,
+}));
+---
+
+<BaseLayout title="Categories" description="Browse posts by category on blogito.">
+  <header class="article-header">
+    <h1 class="article-title">Categories</h1>
+  </header>
+
+  <div class="categories-grid">
+    {categoriesList.map((cat) => (
+      <CategoryCard slug={cat.slug} name={cat.name} count={cat.count} />
+    ))}
+  </div>
+
+  {categoriesList.map((cat) => {
+    const categoryPosts = allPosts.filter(
+      (p) => p.data.category.toLowerCase() === cat.slug
+    );
+    return (
+      <section style="margin-top: 2.5rem;">
+        <h2>
+          <a href={`/categories/${cat.slug}`}>{cat.name}</a>
+        </h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">{cat.description}</p>
+        {categoryPosts.length > 0 ? (
+          <ul class="posts-list">
+            {categoryPosts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </ul>
+        ) : (
+          <p>No posts in this category yet.</p>
+        )}
+      </section>
+    );
+  })}
+</BaseLayout>

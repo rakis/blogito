@@ -1,0 +1,65 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: URL | string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description = 'Thoughts and other things by Victor Nghe.',
+  image,
+  canonicalURL = Astro.url,
+  type = 'website',
+} = Astro.props;
+
+const siteTitle = title === 'blogito' ? 'blogito' : `${title} | blogito`;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate" type="application/rss+xml" title="blogito" href="/feed.xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Color Scheme & FOUC Prevention Script -->
+<meta name="color-scheme" content="light dark" />
+<script is:inline>
+  (function () {
+    try {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'dark' || storedTheme === 'light') {
+        document.documentElement.dataset.theme = storedTheme;
+        const meta = document.querySelector('meta[name="color-scheme"]');
+        if (meta) meta.content = storedTheme;
+      }
+    } catch (e) {
+      // Storage access blocked or unavailable
+    }
+  })();
+</script>
+
+<!-- Primary Meta Tags -->
+<title>{siteTitle}</title>
+<meta name="title" content={siteTitle} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={siteTitle} />
+<meta property="og:description" content={description} />
+{image && <meta property="og:image" content={new URL(image, Astro.url)} />}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:site" content="@rakis" />
+<meta property="twitter:creator" content="@rakis" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={siteTitle} />
+<meta property="twitter:description" content={description} />
+{image && <meta property="twitter:image" content={new URL(image, Astro.url)} />}
