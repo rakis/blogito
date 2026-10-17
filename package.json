@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
-    "astro": "^7.3.7"
+    "astro": "^7.3.8"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
